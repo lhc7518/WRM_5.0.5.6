@@ -21,7 +21,7 @@
 		<script type="javascript" lazy="false"><![CDATA[
 
 scwin.onpageload = function() {
-	scwin.setChartData();
+	scwin.setChartData(); 
 	//scwin.setChartOption();
 
 	//window.addEventListener(`resize`, scwin.setDynamicChart);	
