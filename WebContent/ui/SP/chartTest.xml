@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<w2:type>COMPONENT</w2:type>
+		<w2:buildDate />
+		<w2:MSA />
+		<xf:model>
+			<w2:dataCollection>
+				<w2:dataList id="dlt_chartData" baseNode="list" style="" repeatNode="data">
+					<w2:columnInfo>
+						<w2:column id="month" name="매출월" dataType="text"></w2:column>
+						<w2:column id="data1" name="데이터1" dataType="number"></w2:column>
+						<w2:column id="data2" name="데이터2" dataType="number"></w2:column>
+						<w2:column id="data3" name="데이터3" dataType="number"></w2:column>
+						<w2:column id="data4" name="데이터4" dataType="number"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+			</w2:dataCollection>
+		</xf:model>
+		<script type="javascript" lazy="false"><![CDATA[
+
+scwin.onpageload = function() {
+	scwin.setChartData();
+	//scwin.setChartOption();
+
+	//window.addEventListener(`resize`, scwin.setDynamicChart);	
+};
+
+
+/**
+ * 차트 데이터 셋팅 
+ */
+scwin.setChartData = function(){
+	//차트 데이터 셋팅 
+	var jsonData = [
+		{"month":"1월",		"data1":20000,	"data2":10000}
+		,{"month":"2월",	"data1":15000,	"data2":20000}
+		,{"month":"3월",	"data1":12000,	"data2":30000}
+		,{"month":"4월",	"data1":27000,	"data2":40000}
+		,{"month":"5월",	"data1":11000,	"data2":50000}
+		,{"month":"6월",	"data1":19000,	"data2":60000}
+		,{"month":"7월",	"data1":23000,	"data2":50000}
+		,{"month":"8월",	"data1":24000,	"data2":40000}
+		,{"month":"9월",	"data1":17000,	"data2":30000}
+		,{"month":"10월",	"data1":20000,	"data2":20000}
+		,{"month":"11월",	"data1":11000,	"data2":10000}
+		,{"month":"12월",	"data1":22000,	"data2":20000}
+	];
+	dlt_chartData.setJSON(jsonData);
+
+	//차트타입 선택 data 셋팅 
+	var chartType = ["Column2D", "Column3D", "Line", "Area2D", "Bar2D", "Pie2D", "Pie3D", "Doughnut2D", "Doughnut3D", "Pareto2D", "Pareto3D", "MSColumn2D", "MSColumn3D", "MSLine", "MSBar2D", "MSBar3D", "MSArea", "Marimekko", "ZoomLine", "StackedColumn3D", "StackedColumn2D", "StackedBar2D", "StackedBar3D", "StackedArea2D", "MSStackedColumn2D", "MSStackedBar2D", "MSCombi3D", "MSCombi2D", "MSColumnLine3D", "StackedColumn2DLine", "StackedColumn3DLine", "MSCombiDY2D", "MSColumn3DLineDY", "StackedColumn3DLineDY", "MSStackedColumn2DLineDY", "Scatter", "Bubble", "ScrollColumn2D", "ScrollLine2D", "ScrollArea2D", "ScrollStackedColumn2D", "ScrollCombi2D", "ScrollCombiDY2D", "SSGrid", "OverlappedColumn2D", "OverlappedBar2D"], a = ["column2d", "column3d", "line", "area2d", "bar2d", "pie2d", "pie3d", "doughnut2d", "doughnut3d", "pareto2d", "pareto3d", "mscolumn2d", "mscolumn3d", "msline", "msbar2d", "msbar3d", "msarea", "marimekko", "zoomline", "stackedcolumn3d", "stackedcolumn2d", "stackedbar2d", "stackedbar3d", "stackedarea2d", "msstackedcolumn2d", "msstackedbar2d", "mscombi3d", "mscombi2d", "mscolumnline3d", "stackedcolumn2dline", "stackedcolumn3dline", "mscombidy2d", "mscolumn3dlinedy", "stackedcolumn3dlinedy", "msstackedcolumn2dlinedy", "scatter", "bubble", "scrollcolumn2d", "scrollline2d", "scrollarea2d", "scrollstackedcolumn2d", "scrollcombi2d", "scrollcombidy2d", "ssgrid", "overlappedcolumn2d", "OverlappedBar2D"];
+	for ( var i=0; i<chartType.length; i++ ){
+		//아래 3가지 타입은 오류 있음 
+		if ( chartType[i] != "SSGrid" && chartType[i] != "ScrollArea2D" && chartType[i] != "MSStackedBar2D" ){
+			sel_chartType.addItem(chartType[i], chartType[i]);
+		}
+	}
+	sel_chartType.setSelectedIndex(0);
+};
+
+
+/**
+ * 차트 옵션적용 & 그리기 (사이즈 변경 시 그려지지 않는 현상 있음...)
+ */
+scwin.setChartOption = function(){
+	console.log("scwin.setChartOption ====");
+	var old_chartType = fusionchart1.options.chartType;
+	var chartType = sel_chartType.getValue();
+
+	//차트 type 변경 
+	fusionchart1.changeType(chartType);
+
+	//차트 attribute 셋팅
+	var attributeOptions = {
+		caption : "차트 테스트"
+		,subCaption : chartType
+		,xAxisName : "매출월"			//x축 명칭  
+		,yAxisName : "금액(만원)"		//y축 명칭
+		,width : "100%"
+		,height : "100%"
+	};
+	fusionchart1.setChartAttribute(attributeOptions);
+
+	//별도의 TrendLine 추가 (별도 라인)   
+	var trendLineOptions = {
+		startValue : "15000"
+		,color : "FF0030"
+		,displayValue : "손익분기점"
+	};
+	fusionchart1.addTrendLine(trendLineOptions);	
+
+	//차트 dataList binding (차트에 직접 binding 하지 않을 경우)   
+	var ref = "data:" + "dlt_chartData";		//연결 dataList 
+	var labelNode = "month";
+	var seriesColumns = "[['data1', 'data2']]"; 		//멀티 series 일 경우 array 형태로 => [['col1','col2','col3']] 
+	fusionchart1.setChartColumnRef(ref, labelNode, seriesColumns); 
+};
+
+
+/**
+ * 차트 옵션적용 & 그리기2 (사이즈 변경 시 정상적으로 그려짐...)
+ */
+scwin.setDynamicChart = function(){
+	console.log("scwin.setDynamicChart ====");
+	var chartType = sel_chartType.getValue();
+
+	if ( typeof fusionchart1 != "undefined" ){
+		fusionchart1.remove();
+	}
+
+	//( id , tagName , options , parent )
+    $p.dynamicCreate(
+		"fusionchart1", 
+		"fusionchart", 
+		{
+			style : "width:100%; height: 100%;"
+			, drawType : "javascript"
+			//, ref : "data:dlt_chartData"
+			, chartType : chartType
+		}, 
+		grp_chart
+	).then(function() {
+
+		//차트 attribute 셋팅
+		var attributeOptions = {
+			caption : "차트 테스트2"
+			,subCaption : chartType
+			,xAxisName : "매출월"			//x축 명칭  
+			,yAxisName : "금액(만원)"		//y축 명칭
+			,width : "100%"
+			,height : "100%"
+		};
+		fusionchart1.setChartAttribute(attributeOptions);
+
+		//별도의 TrendLine 추가 (별도 라인)   
+		var trendLineOptions = {
+			startValue : "15000"
+			,color : "FF0030"
+			,displayValue : "손익분기점2"
+		};
+		fusionchart1.addTrendLine(trendLineOptions);
+		
+		//차트 dataList binding (차트에 직접 binding 하지 않을 경우)   
+		var ref = "data:" + "dlt_chartData";		//연결 dataList 	
+		var labelNode = "month";
+		var seriesColumns = "[['data1', 'data2']]"; 		//멀티 series 일 경우 array 형태로 => [['col1','col2','col3']] 
+		fusionchart1.setChartColumnRef(ref, labelNode, seriesColumns);  
+	});
+
+};
+
+
+scwin.sel_chartType_onviewchange = function(info) {
+	scwin.setDynamicChart();
+};
+
+scwin.btn_trigger1_onclick = function(e) {
+	scwin.setChartOption();
+};
+
+scwin.btn_trigger2_onclick = function(e) {
+	scwin.setDynamicChart();
+};
+
+scwin.btn_trigger11_onclick = function(e) {
+	/*
+	//============================
+	$.ajax({
+		url: "https://search.cjmall.com/search-web/search/topSearchKeyword/topKeyword.json",
+		//url: "http://localhost:9090/ui/SP/testData2.json",
+		dataType: 'jsonp',
+		success: function(res) {
+			debugger;
+			console.log(res);	
+		},
+		error: function(xhr) {
+			console.log('failure - ', xhr);
+		}
+	});
+	*/
+
+	//============================
+	/*
+	var url = 'http://localhost:9090/';
+	var static_json = 'http://localhost:9090/ui/SP/testData2.json'
+	$.ajax({
+		url: static_json,
+		dataType: 'jsonp',
+		//jsonpCallback: "myCallback",
+		jsonpCallback: function(data){
+			console.log('jsonp callback', data);
+		},
+		success: function(data){
+			console.log('ajax', data);
+		}
+	});
+	*/
+
+	//================================
+	/*
+	WebSquare.net.ajax({
+		action: "http://localhost:9090/ui/SP/testData2.json",
+		mediatype: "application/json",
+		method: "get",
+		mode: "asynchronous",
+		requestData: "",
+		success: function(e){
+			debugger;
+			//var headerStr = e.responseHeaders;
+			var responseTextStr = e.responseText;
+			//var resXmlObj = WebSquare.xml.parse( responseTextStr );			
+						
+			WebSquare.ModelUtil.setInstanceNode( WebSquare.xml.parse( responseTextStr ) , "res/"+_targetNode);
+			
+			if( _callBackFunc != ""){
+				eval( _callBackFunc+"()" );				
+			}			
+		},
+		error: function(e) {
+			WebSquare.logger.printLog("fn_HumCommonCode error==>["+e.responseText+"]["+e+"]");
+		}
+	});
+	*/
+
+	
+	//============================
+	//var reqstr = '<request><data value="efg">ABCD</data></request>';
+	var reqstr = JSON.stringify({"abc":"1234"});
+	$p.ajax({
+		action : "/member/searchMemberBasic",
+		mode : "asynchronous",
+		mediatype : "application/json",
+		method : "post",
+		requestData : reqstr, 			//객체가 아닌 str 형태로 보내야함... 
+		type : "json",
+		beforeAjax : function(e) {
+			console.log("beforeAjax call");
+		},
+		success : function(e) { 
+			console.log("success call");
+			debugger;
+		},
+		error : function(e) {
+			console.log("error call");
+		},
+		requestHeader : {
+			sendData1 : "123",
+			sendData2 : "456"
+		}
+	});
+
+};
+]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group id="">
+			<xf:select1 id="sel_chartType" chooseOption="" style="width: 148px;height: 21px;" submenuSize="auto" allOption=""
+				disabled="false" direction="auto" appearance="minimal" disabledClass="w2selectbox_disabled" ref=""
+				ev:onviewchange="scwin.sel_chartType_onviewchange">
+				<xf:choices></xf:choices>
+			</xf:select1>
+			<xf:trigger ev:onclick="scwin.btn_trigger1_onclick" style="width: 80px;height: 23px;" id="btn_trigger1" type="button">
+				<xf:label><![CDATA[일반생성]]></xf:label>
+			</xf:trigger>
+			<xf:trigger ev:onclick="scwin.btn_trigger2_onclick" id="btn_trigger2" style="width: 80px;height: 23px;" type="button">
+				<xf:label><![CDATA[동적생성]]></xf:label>
+			</xf:trigger>
+			<xf:trigger id="btn_trigger11" style="width: 80px;height: 23px;" type="button" ev:onclick="scwin.btn_trigger11_onclick">
+				<xf:label><![CDATA[ajaxTest]]></xf:label>
+			</xf:trigger>
+		</xf:group>
+		<xf:group id="grp_chart" style="margin-top: 10px;width: 100%;height: 300px;">
+			<w2:fusionchart ref="" chartType="" drawType="javascript" style="height: 100%;width: 100%;" id="fusionchart1">
+			</w2:fusionchart>
+		</xf:group>
+	</body>
+</html>

@@ -1,0 +1,102 @@
+{
+	"dlt_temp": [
+		{
+			"company": "삼성",
+			"product": "SM3",
+			"data1": 1000,
+			"data2": 2000,
+			"data3": 3000
+		},
+		{
+			"company": "삼성",
+			"product": "SM5",
+			"data1": 2000,
+			"data2": 3000,
+			"data3": 4000
+		},
+		{
+			"company": "삼성",
+			"product": "SM7",
+			"data1": 5000,
+			"data2": 6000,
+			"data3": 7000
+		},
+		{
+			"company": "삼성",
+			"product": "SM9",
+			"data1": 8000,
+			"data2": 9000,
+			"data3": 10000
+		},
+		{
+			"company": "현대",
+			"product": "아반테",
+			"data1": 1000,
+			"data2": 2000,
+			"data3": 3000
+		},
+		{
+			"company": "현대",
+			"product": "소나타",
+			"data1": 2000,
+			"data2": 3000,
+			"data3": 4000
+		},
+		{
+			"company": "현대",
+			"product": "그랜저",
+			"data1": 5000,
+			"data2": 6000,
+			"data3": 7000
+		},
+		{
+			"company": "현대",
+			"product": "제네시스",
+			"data1": 8000,
+			"data2": 9000,
+			"data3": 10000
+		},
+		{
+			"company": "기아",
+			"product": "K3",
+			"data1": 1000,
+			"data2": 2000,
+			"data3": 3000
+		},
+		{
+			"company": "기아",
+			"product": "K5",
+			"data1": 2000,
+			"data2": 3000,
+			"data3": 4000
+		},
+		{
+			"company": "기아",
+			"product": "K7",
+			"data1": 5000,
+			"data2": 6000,
+			"data3": 7000
+		},
+		{
+			"company": "쌍용",
+			"product": "티볼리",
+			"data1": 1000,
+			"data2": 2000,
+			"data3": 3000
+		},
+		{
+			"company": "쌍용",
+			"product": "코란도",
+			"data1": 2000,
+			"data2": 3000,
+			"data3": 4000
+		},
+		{
+			"company": "쌍용",
+			"product": "렉스턴",
+			"data1": 5000,
+			"data2": 6000,
+			"data3": 7000
+		}
+	]
+}
