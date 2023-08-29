@@ -331,8 +331,25 @@ scwin.btn_cancelCode_onclick = function () {
 };
 
 scwin.btn_excelGrp_onclick = function () {
-	com.data.downloadGridViewExcel(grd_commonGrp);
+	//com.data.downloadGridViewExcel(grd_commonGrp);
+	//com.data.downloadGridViewExcel(grd_commonGrp, {checkedData : true, checkedColumnId : "chk"});	//체크된 데이터만 엑셀다운로드 
+	com.data.downloadGridViewExcel(grd_commonGrp, {dataHandler : scwin.dataHandler});		//dataHandler 샘플 
 };
+
+
+//dataHandler 샘플 (chk 값이 1인 데이터만 엑셀출력) 
+scwin.dataHandler = function(gridViewId) {
+	console.log("scwin.dataHandler==>", gridViewId);
+	var grdViewObj = $p.getComponentById(gridViewId);
+	var dataListObj = $p.getComponentById(grdViewObj.getDataList());
+	var checkedDataList = dataListObj.getMatchedData("chk","1");
+	var returnArr = checkedDataList.reduce(function(arr, currentValue) {
+		arr = arr.concat(currentValue);		//결과 형태가 rowData(즉, 행의 데이터를 배열로 반환 )
+		return arr;
+	}, []);
+	return returnArr;
+};
+
 
 scwin.btn_excelCode_onclick = function () {
 	com.data.downloadGridViewExcel(grd_commonCode);
