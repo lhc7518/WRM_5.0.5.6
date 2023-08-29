@@ -1154,12 +1154,12 @@ com.data.downloadGridViewExcel(grdObj, options, infoArr);
 // Ex2. 체크 컬럼(chk)이 체크된 데이터만 엑셀 다운로드
 com.data.downloadGridViewExcel(grd_commonGrp, {checkedData : true});
 
-// Ex3. dataHanlder 옵션을 통해서 데이터 필터링 후 엑셀 다운로드
+// Ex3. dataHandler 옵션을 통해서 데이터 필터링 후 엑셀 다운로드
 scwin.btn_excelGrp_onclick = function () {
-	com.data.downloadGridViewExcel(grd_commonGrp, {dataHandler : scwin.dataHanlder});
+	com.data.downloadGridViewExcel(grd_commonGrp, {dataHandler : scwin.dataHandler});
 };
 
-scwin.dataHanlder = function(gridViewId) {
+scwin.dataHandler = function(gridViewId) {
 	var grdViewObj = $p.getComponentById(gridViewId);
 	var dataListObj = $p.getComponentById(grdViewObj.getDataList());
 	var checkedDataList = dataListObj.getMatchedData("IS_USE","Y");
