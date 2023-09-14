@@ -291,7 +291,7 @@ export default {
       "@value": "false"
     },
     "environment": {
-      "@cache": "nocache",
+      "@cache": "cache",
       "@mode": "production",
       "@postfix": "day"
     },

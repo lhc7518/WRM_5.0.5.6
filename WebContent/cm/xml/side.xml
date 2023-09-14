@@ -112,7 +112,11 @@ scwin.initDataCallback = function () {
 	var layout = $p.main().scwin.getLayoutId();
 
 	if (layout == "S") {
-		var menuCd = $w.getParameter("menuCd");
+
+		//URL http://localhost:9090/?menuCd=001001002  형태로 넘어올때 해당 메뉴 open 처리
+		//WebSquare.net.getParameter == $w.getParameter 와 동일함 (즉, 최상단의 파라미터를 가져와야 함) - LHC 
+		//직접 URL 에 menuCd 파라미터 추가하여 로딩하는 경우 대비, menuCd 화면 open 처리 
+		var menuCd = $w.getParameter("menuCd");		
 
 		if (com.util.isEmpty(menuCd)) {
 			com.win.openMenu("메인", "/cm/xml/main.xml", "MAIN", null, option);

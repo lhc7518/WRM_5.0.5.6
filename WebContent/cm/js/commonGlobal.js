@@ -869,7 +869,7 @@ gcm.win.setHistoryBackEvent = function() {
 
 
 /**
- * history.pushState API를 호출해서 브라우저에서 History 상태를 기록한다.
+ * history.pushState API를 호출해서 브라우저에서 History 상태를 기록한다. (메뉴 open 시 URL 에 ?menuCode=1234 식으로 파라미터 셋팅 - LHC) 
  *
  * @memberOf gcm.win
  * @date 2021.07.08
