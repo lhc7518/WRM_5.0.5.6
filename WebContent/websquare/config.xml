@@ -290,6 +290,6 @@
 	</languagePack>
 	<license value="true"/>
 	<requirejs timeout="20"/>
-	<!-- 서버 다국어 설정시 아래의 주석 부분을 풀어준다. -->
+	<!-- 서버 다국어 설정시 아래의 주석 부분을 풀어준다. (sever.config.xml 에도 서버 다국어 관련 설정 존재함...)  -->
 	<!-- <pageURLPrefix type="function" value="gcm.win.getI18NUrl" ignoreW2xPath="true"/> -->
 </WebSquare>

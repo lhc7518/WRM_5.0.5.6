@@ -130,4 +130,32 @@
 			dir="${WEBSQUARE_HOME}\log\exception" filename="exception" level="INFO"
 			lineNumber="true" name="exception" retentionPeriod="10" thread="true" />
 	</log>
+	  
+	<i18n>
+	    <!--
+	        다국어 리소스 번들 파일이 존재하는 폴더. 설정이 없는 경우 $WEBSQUARE_HOME/locale를 사용한다.
+	        * 한국어의 경우 baseDir/ko/ 아래 파일이 존재함
+	        * 영어의 경우 baseDir/en/ 아래 파일이 존재함
+	    -->
+	    <baseDir value="C:\WEBSQUARE_DEV_PACK_SP5_5.0.5.6\workspace\WRM\WebContent\WEB-INF\lang"/>
+	    <!-- 기본 locale를 설정한다. 설정이 없는 경우 en을 사용한다. -->
+	    <defaultLocale value="ko">
+			<domain name="localhost" locale="en"/>
+			<domain name="ko.inswave.co.kr" locale="ko"/>
+			<domain name="en.inswave.co.kr" locale="en"/>
+	    </defaultLocale>
+	    <!--
+	        변환에 사용할 다국어를 서버에 넘겨주기 위해 사용할 파라미터. 설정이 없는 경우 locale를 사용한다.
+	        다국어 판단 우선순위
+	        1.url
+	        2.defaultLocale설정(domain별 default locale참조 후 전체 default locale 참조)
+	    -->
+	    <localeParam value="locale"/>
+	    <!--
+	        baseDir : 웹스퀘어 XML파일이 존재하는 폴더를 지정한다. 설정이 없는 경우 정상 동작하지 않는다.
+	        cache : true | false 변환된 파일을 캐싱할지 설정한다. 기본값은 false이다.
+	    -->
+	    <xmlInfo baseDir="C:\WEBSQUARE_DEV_PACK_SP5_5.0.5.6\workspace\WRM\WebContent" cache="false"/>
+	</i18n>	  
+	
 </websquare>
