@@ -867,7 +867,7 @@ com.data.downloadMultipleDataList = function (optionsParam, infoArrParam) {
 
 
 /**
- * DataList의 데이터를 엑셀 파일로 저장한다.
+ * 그리드의 데이터를 엑셀로 저장한다. (다중 그리드를 하나의 엑셀파일로 저장)
  *
  * @param {Object}	options.common							JSON형태로 저장된 dataList의 엑셀 다운로드 옵션
  * @param {String}	options.common.fileName					[default: excel.xls] 다운로드하려는 파일의 이름
@@ -1284,14 +1284,6 @@ com.data.downloadGridViewExcel = function(grdObj, options, infoArr) {
  * @param {Number}   options.hidden				[default: 0, 1] Grid의 숨겨진 Column에 대한 저장 여부(0이면 저장 하지 않음,1이면 저장)
  * @param {String}   options.checkButton		[default: 1, 0] Grid의 Control(Check, Radio, Button) Column에 대해 히든 여부 (0이면 control Coliumn히든,1이면 보여줌)
  * @param {Array}	options.saveList			[default: 없음] hidden에 관계없이 최우선순위로 저장할 column id들의 array
- * @param {String}   options.columnMove			[default: false] 그리드 컬럼이동시 이동된 상태로 다운로드 유무 ( "true"인경우 컬럼이동 순서대로 출력 )
- * @param {String}   options.columnOrder		[default: 없음] csv 다운로드시 다운로드되는 컬럼 순서를 지정 할 수 있는 속성 ( ex) "0,3,2,1"로 지정시 지정한 순서로 다운로드된다 )
- * @param {String}   options.spanAll			[default: false] drilldown gridView인 경우 전체목록을 펼쳐서 다운로드 할 수 있는 속성. (true이면 전체출력, false면 보여지는 목록만 출력)
- * @param {String}   options.aposPrefixOnNum	[default: 0, 1] dataType이 number이고 length가 12자리이상인 경우 '(apos)를 붙일지 여부 (0 이면 apos를 붙이지않음, 1이면 붙임)
- * @param {String}   options.ignoreSpan			[default: 0, 1] span되어 있는 경우 span을 무시하고 데이터를 채울지 여부 (0이면 저장하지 않음, 1이면 저장)
- * @param {String}   options.removeQuotation	[default: 0, 1] value에 ", ' 가 들어있는 경우 ", '를 지울지 여부 (0이면 지원지 않음, 1이면 지움)
- * @param {String}   options.removeNewLine		[default: 1, 0] value내에 \r\n이 있을 경우 삭제유무 (0이면 지원지 않음, 1이면 지움)
- * @param {String}   options.optionParam		[default: 없음] DRM 연계시 사용자 정의 class에 HashMap 인자로 전달할 값. key는 "optionParam"으로 참조한다.
  * @memberOf com.data
  * @date 2020.05.16
  * @return {file} CSV file
@@ -1302,7 +1294,7 @@ var options = {
 	fileName : "downLoadCSV.csv" //[default : excel.csv] options.fileName 값이 없을 경우 default값 세팅
 };
 com.data.downloadGridViewCSV(grdObj, options);
-//return 예시) 엑셀 파일 다운로드
+//return 예시) csv 파일 다운로드
  */
 com.data.downloadGridViewCSV = function(grdObj, options) {
 	if (com.util.isEmpty(options)) {
@@ -1351,8 +1343,6 @@ com.data.downloadGridViewCSV = function(grdObj, options) {
  * @param {String}  options.delim				업로드시 데이터를 구분하는 구분자 (default: , )
  * @param {String}  options.status				[default: R]업로드된 데이터의 초기 상태값, 설정하지 않으면 "R"로 설정되며 "C"값을 설정 할 수 있다.
  * @param {String}  options.pwd					엑셀파일에 암호가 걸려 있는 경우, 비밀번호
- * @param {String}  options.optionParam			[default: 없음] DRM 연계시 사용자 정의 class에 HashMap 인자로 전달할 값. key는 "optionParam"으로 참조한다.
- * @param {String}  options.cellDataConvertor	[default: true] 컬럼값을 사용자가 수정할수 있는 연계 클래스의 전체 패키지명. (AbstractCellDataProvider class를 상속후 convertValue method를 구현해야 함.
  * @param {String}  options.decimal				[default: 4] 셀의 데이터가 소수인 경우, 최종 소수점 자리수. (기본값: 4) (예: 3인경우 4자리에서 반올림해서 3자리를 최종 표시.)
  * @param {String}  options.useModalDisable		[default: false] 업로드 팝업창이 활성화 될때 부모창의 컴포넌트 disabled 처리 유무.
  * @param {String}  options.useMaxByteLength	[default: false] ignoreChar 속성으로 설정한 문자를 제외하고 maxByteLength 속성으로 설정한 길이만큼의 데이터만 업로드.
@@ -1442,8 +1432,6 @@ com.data.uploadGridViewExcel = function (grdObj, options) {
  * @param {String}  options.expression		[default: 1, 0]expression 컬럼 데이터를 포함하고 있는지 여부, 기본값은 미포함(1이면 미포함, 0이면 포함)
  * @param {String}  options.popupUrl		업로드시에 호출할 popup의 url
  * @param {String}  options.status			[default: R]업로드된 데이터의 초기 상태값, 설정하지 않으면 "R"로 설정되며 "C"값을 설정 할 수 있다.
- * @param {String}  options.ignoreSpan		[default: 0, 1] span되어 있는 경우 span을 무시하고 데이터를 읽을지 여부 (0이면 머지되어 있는 컬럼을 하나로 본다, 1이면 머지되어 있는 컬럼을 각각읽는다)
- * @param {String}  options.optionParam		[default: 없음] DRM 연계시 사용자 정의 class에 HashMap 인자로 전달할 값. key는 "optionParam"으로 참조한다.
  * @memberOf com.data
  * @date 2020.05.16
  * @author Inswave Systems
@@ -2057,7 +2045,7 @@ com.data.undoRow = function(dltId) {
 };
 
 /**
- * GridView와 바인된 DataList의 데이터의 변경된 데이터를 Undo 시킨다.
+ * GridView와 바인딩된 DataList의 데이터의 변경된 데이터를 Undo 시킨다.
  *
  * @param {Object|String} grdId GridView 객체 또는 GridView 아이디
  * @memberOf com.data
@@ -2562,9 +2550,9 @@ com.util.getObjectType = function (obj) {
 };
 
  
- /**
-  * 값이 Plain Object인지 검사한다. 
-  *
+/**
+ * 값이 Plain Object인지 검사한다. 
+ *
  * @memberOf com.util
  * @date 2021.04.19
  * @param {Object} obj Plain Object인지 검사할 값
@@ -2946,7 +2934,7 @@ com.util.setTimeout = function(func, options) {
 
 
 /**
- * com.util.setTimer API를 이용하여 등록 한 함수를 직접 Clear시킨다.
+ * com.util.setTimeout API를 이용하여 등록 한 함수를 직접 Clear시킨다.
  *
  * @memberOf com.util
  * @date 2020.10.23
@@ -3301,10 +3289,9 @@ com.win.getLanguage = function() {
 	} else {
 		return "";
 	}
-}
+};
 
 /**
- *
  * 팝업 아이디를 반환한다.
  *
  * @memberOf com.win
@@ -3325,7 +3312,6 @@ com.win.getPopupId = function() {
 
 
 /**
- *
  * 팝업창을 연다.
  *
  * @param {String} url url 화면경로
@@ -3605,6 +3591,23 @@ com.win.getLangCode = function(langCode) {
 };
 
 
+/**
+ * 현재 화면 재로딩
+ * 브라우저를 refresh하지 않고 해당 페이지를 다시 로딩한다. (별도 팝업은 브라우저 refresh) 
+ * 
+ * @example
+com.win.reinitialize();
+*/
+com.win.reinitialize = function(){
+	if ( $p.isPopup() == true && $p.isWFramePopup() == false ){
+		//별도 팝업일 경우 
+		$p.reinitialize(true);
+	} else {
+		$p.reinitialize();
+	}
+};
+
+
 // =============================================================================
 /**
  * 숫자 관련 함수를 작성한다.
@@ -3689,6 +3692,7 @@ com.num.ceil = function(value, point) {
 
 
 /**
+ * 금액 포맷을 적용한다.
  * ex)세번째자리마다 콤마 표시, 금액, setDisplayFormat("#,###&#46##0", "fn_userFormatter2") - 입력된 str에 포메터를 적용하여 반환한다.<p>
  *
  * @param {String|Number} value 포멧터를 적용할 값
